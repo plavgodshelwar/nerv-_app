@@ -1,6 +1,6 @@
 {
   "name": "nerv",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "private": true,
   "description": "A local-first command center for coordinating a team of CLI coding agents.",
   "main": "out/main/index.js",

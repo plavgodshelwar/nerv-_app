@@ -45,7 +45,13 @@ jobs:
         run: python -m pip install --upgrade setuptools
 
       - name: Install dependencies
-        run: npm ci
+        # Skip dependency lifecycle hooks during the reproducible install. Native
+        # modules are rebuilt explicitly by electron-builder for each target;
+        # this avoids a host-Node ABI build during `npm ci`.
+        run: |
+          npm ci --ignore-scripts
+          node tools/ensure-pty-perms.cjs
+          node tools/patch-node-pty-conpty.cjs
 
       - name: Compile (electron-vite → out/)
         run: npm run build
