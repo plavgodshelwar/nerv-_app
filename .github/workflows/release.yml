@@ -20,8 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-latest
-            args: --mac
           - os: windows-2022
             args: --win
           - os: ubuntu-latest
@@ -68,20 +66,6 @@ jobs:
         run: npx electron-builder ${{ matrix.args }} --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # macOS code signing + notarization — MUST be macOS-only. CSC_LINK is the
-          # Apple Developer ID .p12; if it leaks into the Windows/Linux runners,
-          # electron-builder tries to sign those targets with the mac cert and the
-          # build hard-fails ("cannot extract publisher name"). So gate on the OS.
-          #   APPLE_CERTIFICATE_P12       = base64 of the "Developer ID Application" .p12
-          #   APPLE_CERTIFICATE_PASSWORD  = that .p12's export password (REQUIRED if P12 set,
-          #                                 else electron-builder imports with an empty
-          #                                 password and fails "MAC verification failed")
-          # All optional: with the secrets unset every runner builds unsigned and stays green.
-          CSC_LINK: ${{ matrix.os == 'macos-latest' && secrets.APPLE_CERTIFICATE_P12 || '' }}
-          CSC_KEY_PASSWORD: ${{ matrix.os == 'macos-latest' && secrets.APPLE_CERTIFICATE_PASSWORD || '' }}
-          APPLE_ID: ${{ matrix.os == 'macos-latest' && secrets.APPLE_ID || '' }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ matrix.os == 'macos-latest' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
-          APPLE_TEAM_ID: ${{ matrix.os == 'macos-latest' && secrets.APPLE_TEAM_ID || '' }}
 
       - name: Generate checksums
         shell: bash

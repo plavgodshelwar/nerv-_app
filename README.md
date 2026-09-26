@@ -57,13 +57,13 @@ It exposes PostgreSQL on `localhost:5432` with development-only defaults (`postg
 
 1. Update the version in `package.json`.
 2. Commit and push the change to `main`.
-3. Push a tag such as `v0.4.9`.
+3. Push a tag such as `v0.5.0`.
 4. The release workflow builds and publishes platform installers to GitHub Releases.
 5. Point the website’s Windows download link to:
 
-   `https://github.com/plavgodshelwar/nerv-_app/releases/latest/download/NERV-0.4.9-win-x64-setup.exe`
+   `https://github.com/plavgodshelwar/nerv-_app/releases/latest/download/NERV-0.5.0-win-x64-setup.exe`
 
-Use the exact versioned filename created by the release workflow. The stable `releases/latest` page remains a safe general fallback.
+Use the exact versioned filename created by the release workflow. The stable `releases/latest` page remains a safe general fallback. The initial release workflow publishes Windows and Linux; add a signed macOS build after Apple signing credentials are configured.
 
 ## Project structure
 
